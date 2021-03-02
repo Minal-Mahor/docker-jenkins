@@ -18,6 +18,7 @@ pipeline {
             ibmcloud config --check-version=false
             ibmcloud plugin install -f kubernetes-service
             ibmcloud plugin install -f container-registry
+            ibmcloud plugin install -f observe-service
             '''
       }
     }
