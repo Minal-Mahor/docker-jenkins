@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('Install IBM Cloud CLI') {
       steps { 
-        sh ''' 
+        bat ''' 
             curl -fsSL https://clis.cloud.ibm.com/install/linux | sh
             ibmcloud --version
             ibmcloud config --check-version=false
@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Authenticate with IBM Cloud CLI') {
       steps {
-        sh '''
+        bat '''
             ibmcloud login --apikey ${IBM_API_KEY} -r "${IBM_CLOUD_REGION}" -g Default
             ibmcloud ks cluster config --cluster ${IKS_CLUSTER}
             '''
@@ -48,7 +48,7 @@ pipeline {
     }
     stage('Deploy to IKS') {
       steps {
-        sh '''
+        bat '''
             ibmcloud ks cluster config --cluster ${IKS_CLUSTER}
             kubectl config current-context
             kubectl create deployment ${DEPLOYMENT_NAME} --image=minalmahor/myapp --dry-run -o yaml > deployment.yaml
